@@ -9,6 +9,11 @@ public class ControleMarin : MonoBehaviour
     // variables de mouvement et contrôle
     [SerializeField] private float _vitessePromenade;
     [SerializeField] private float _vitessePromenadeEX;
+    [SerializeField] private float _GottaGoFastH;
+    [SerializeField] private float _GottaGoFastV;
+    [SerializeField] private float _GottaMove;
+    [SerializeField] private float _GottaDoStuffH;
+    [SerializeField] private float _GottaDoStuffV;
     private Rigidbody _rb;
     private Vector3 directionInput;
 
@@ -21,7 +26,11 @@ public class ControleMarin : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _vitessePromenadeEX = 1;
+        _GottaDoStuffV = _GottaGoFastV * _GottaMove;
+        _GottaDoStuffH = _GottaGoFastH * _GottaMove;
     }
+
 
     private void Update()
     {
@@ -36,32 +45,38 @@ public class ControleMarin : MonoBehaviour
 
         if (directionAvecVitesse.x > 0)
         {
-            _animator.SetFloat("VitesseV", 1);
+            _GottaGoFastV = 1;
+            _animator.SetFloat("VitesseV", _GottaGoFastV);
         }
 
         if (directionAvecVitesse.x < 0)
         {
-            _animator.SetFloat("VitesseV", -1);
+            _GottaGoFastV = -1;
+            _animator.SetFloat("VitesseV", _GottaGoFastV);
         }
 
         if (directionAvecVitesse.x == 0)
         {
-            _animator.SetFloat("VitesseV", 0);
+            _GottaGoFastV = 0;
+            _animator.SetFloat("VitesseV", _GottaGoFastV);
         }
 
         if (directionAvecVitesse.y > 0)
         {
-            _animator.SetFloat("VitesseH", 1);
+            _GottaGoFastH = 1;
+            _animator.SetFloat("VitesseH", _GottaGoFastH);
         }
 
         if (directionAvecVitesse.y < 0)
         {
-            _animator.SetFloat("VitesseH", -1);
+            _GottaGoFastH = -1;
+            _animator.SetFloat("VitesseH", _GottaGoFastH);
         }
 
         if (directionAvecVitesse.y == 0)
         {
-            _animator.SetFloat("VitesseH", 0);
+            _GottaGoFastH = 0;
+            _animator.SetFloat("VitesseH", _GottaGoFastH);
         }
 
 
@@ -73,12 +88,13 @@ public class ControleMarin : MonoBehaviour
         if (monBouton.isPressed)
         {
             _vitessePromenadeEX = 2f;
-            _animator.SetBool("Boost", true);
+            
+            
         }
         else
         {
             _vitessePromenadeEX = 1f;
-            _animator.SetBool("Boost", false);
+            _GottaMove = 1;
         }
     }
 
